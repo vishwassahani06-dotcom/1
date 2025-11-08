@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Happy Birthday — For My Special One 💖</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <meta name="theme-color" content="#070a13"/>
+  <style>
+    :root{
+      --bg1:#070a13; --bg2:#0b0f1c;
+      --ink:#ff8bd0; --ink-2:#ffd1f0;
+      --neon:#ff4dd2; --neon2:#ffb3ec;
+      --balloon:#ff2a2a; --balloon-top:#ff5a73;
+      --string:#2b3380;
+      --panel:#0d1222cc;
+      --glow: 0 0 .6rem #ff8bd0, 0 0 1.4rem #ff3bb1, 0 0 2.6rem #ff098b;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; overflow:hidden; color:#fff;
+      font-family:"Poppins", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:
+        radial-gradient(900px 600px at 50% -10%, #101735 0%, transparent 60%),
+        radial-gradient(700px 700px at -20% 120%, #0c1330 0%, transparent 60%),
+        linear-gradient(180deg,var(--bg1),var(--bg2));
+      -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+
+    .confetti-layer, .balloon-layer, .vignette{position:fixed; inset:0; pointer-events:none}
+    .vignette{box-shadow:inset 0 0 220px 90px rgba(0,0,0,.62); z-index:4}
+    .balloon-layer{z-index:0; overflow:hidden}
+    .confetti-layer{z-index:1; overflow:hidden}
+
+    /* Balloons */
+    .balloon{
+      position:absolute; width:26px; height:34px; left:0; bottom:-140px;
+      transform:translateX(-50%); filter: drop-shadow(0 6px 6px rgba(0,0,0,.35));
+      animation: floatUp var(--dur) linear infinite;
+    }
+    .balloon::before{
+      content:""; position:absolute; inset:0; border-radius:50% 50% 45% 45%/60% 60% 40% 40%;
+      background: radial-gradient(12px 10px at 30% 30%, #ffd1d1 0%, var(--balloon-top) 25%, var(--balloon) 55%, #a30000 100%);
+      box-shadow: inset -6px -10px 16px rgba(0,0,0,.35), inset 6px 8px 14px rgba(255,255,255,.08);
+    }
+    .balloon::after{
+      content:""; position:absolute; left:50%; top:96%; width:1.8px; height:48px; background:var(--string); transform:translateX(-50%); opacity:.9; border-radius:1px;
+    }
+    @keyframes floatUp{0%{transform:translate(var(--x,0), 0) scale(var(--s,1)); opacity:0} 8%{opacity:1} 100%{transform: translate(var(--x,0), -120vh) scale(var(--s,1)); opacity:.95}}
+
+    /* Confetti */
+    .confetti{ position:absolute; top:-10px; width:8px; height:12px; opacity:.95; transform: rotate(var(--rot));
+      animation: confettiFall var(--c-dur) linear infinite; }
+    @keyframes confettiFall{0%{ transform: translateY(-10px) rotate(var(--rot)); }100% { transform: translateY(110vh) rotate(calc(var(--rot) + 1.2turn)); }}
+
+    /* Scenes */
+    .stage{position:relative; height:100vh; width:100vw; display:grid; place-items:center}
+    .scene{position:absolute; inset:0; display:grid; place-items:center; opacity:0; pointer-events:none; transition:opacity .6s ease, transform .6s ease; transform:scale(.98); z-index:3}
+    .scene.active{opacity:1; transform:scale(1); pointer-events:auto}
+
+    .card{ position:relative; text-align:center; padding:0; background:transparent; box-shadow:none; filter:none }
+
+    h1,h2{margin:0; letter-spacing:.02em}
+    .topline{font-family:"Great Vibes", cursive; font-size: clamp(36px, 6vw, 76px); color: var(--ink-2); text-shadow: var(--glow);}
+    .subline{font-family:"Great Vibes", cursive; font-size: clamp(22px, 4vw, 48px); color: var(--ink-2); text-shadow: var(--glow); margin-top:.4rem}
+
+    /* progress dots */
+    .dots{ position:fixed; bottom:18px; left:50%; transform:translateX(-50%); display:flex; gap:8px; z-index:3}
+    .dot{ width:10px; height:10px; border-radius:50%; background:#2a2f52; box-shadow:0 0 8px rgba(255,137,208,.35); opacity:.8 }
+    .dot.active{ background:#ff8bd0; box-shadow:0 0 10px #ff8bd0, 0 0 20px #ff098b }
+
+    @media (prefers-reduced-motion: reduce) {
+      .balloon, .confetti { animation: none !important; }
+    }
+
+    .tag { position: fixed; bottom: 10px; right: 12px; z-index: 4; font: 12px/1.2 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; opacity:.6 }
+
+    /* Scene 4 text-only styles from v2 */
+    .v2{display:grid; justify-items:center; gap:min(3vmax,18px); text-align:center; font-family:'Great Vibes', cursive}
+    .v2 .title{margin-top:min(3vmax,24px); font-weight:400; letter-spacing:0; font-size:clamp(18px,3.8vw,34px); color:var(--ink-2); text-shadow: var(--glow)}
+    .v2 .wish{font-family:'Great Vibes', cursive; font-size:clamp(18px,3.8vw,34px); color:var(--ink-2); text-shadow: var(--glow); margin:0 0 min(2.5vmax,18px)}
+  </style>
+</head>
+<body>
+  <!-- FX layers -->
+  <div class="balloon-layer" id="balloons" aria-hidden="true"></div>
+  <div class="confetti-layer" id="confetti" aria-hidden="true"></div>
+  <div class="hearts" id="hearts"></div>
+
+  <main class="stage">
+    <!-- Scene 1 -->
+    <section class="scene active" id="scene-1" aria-label="Hey Trapti">
+      <div class="card">
+        <h1 class="topline">Hey Trapti! 🎂</h1>
+        <p class="subline">Today is your magical day!</p>
+        <img class="hero-img" src="photo.jpg" alt="Trapti Image"/>
+      </div>
+    </section>
+
+    <!-- Scene 2 -->
+    <section class="scene" id="scene-2" aria-label="Guess what?">
+      <div class="card">
+        <h1 class="topline">Guess what? <span aria-hidden="true">🎁</span></h1>
+        <p class="subline">Smiles, laughter, and surprises await you!</p>
+      </div>
+    </section>
+
+    <!-- Scene 3 -->
+    <section class="scene" id="scene-3" aria-label="Shall we begin?">
+      <div class="card">
+        <h1 class="topline">Shall we begin? <span aria-hidden="true">🎈</span></h1>
+        <p class="subline">Close your eyes and make a sweet wish! ✨</p>
+      </div>
+    </section>
+
+    <!-- Scene 4 (final) -->
+    <section class="scene" id="scene-4" aria-label="Happy Birthday (final)">
+      <div class="v2">
+        <p class="wish title" id="title-final">Happy Birthday Trapti</p>
+        <p class="wish" id="wish-final">Wishing you a day filled with love, laughter, and surprises! 🎉</p>
+      </div>
+    </section>
+  </main>
+
+  <div class="dots" aria-hidden="true">
+    <div class="dot" data-dot="1"></div>
+    <div class="dot" data-dot="2"></div>
+    <div class="dot" data-dot="3"></div>
+    <div class="dot" data-dot="4"></div>
+  </div>
+
+  <div class="vignette" aria-hidden="true"></div>
+  <div class="tag">Made with 💖 just for you</div>
+
+  <script>
+    /* Balloons */
+    (function makeBalloons(){
+      const host = document.getElementById('balloons');
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const COUNT = prefersReduced ? 30 : 90;
+      for(let i=0;i<COUNT;i++){
+        const b = document.createElement('div');
+        b.className = 'balloon';
+        const x = Math.random()*100; // vw
+        const drift = (Math.random()*60 - 30) + 'px';
+        b.style.left = x + 'vw';
+        b.style.setProperty('--x', drift);
+        b.style.setProperty('--s', (0.7 + Math.random()*0.9).toFixed(2));
+        b.style.setProperty('--dur', (12 + Math.random()*16).toFixed(2) + 's');
+        host.appendChild(b);
+      }
+    })();
+
+    /* Confetti */
+    (function makeConfetti(){
+      const layer = document.getElementById('confetti');
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const COLORS = ['#ffcf00','#ff5ea8','#8c7bff','#00e0bb','#ffd1f0'];
+      const PIECES = prefersReduced ? 40 : 80;
+      for(let i=0;i<PIECES;i++){
+        const c = document.createElement('div');
+        c.className = 'confetti';
+        c.style.left = Math.random()*100 + 'vw';
+        c.style.background = COLORS[i % COLORS.length];
+        c.style.width = (6 + Math.random()*6) + 'px';
+        c.style.height = (6 + Math.random()*10) + 'px';
+        c.style.setProperty('--rot', (Math.random()*1.2 - .6) + 'turn');
+        c.style.setProperty('--c-dur', (5 + Math.random()*8).toFixed(2) + 's');
+        c.style.animationDelay = (-Math.random()*8).toFixed(2) + 's';
+        layer.appendChild(c);
+      }
+    })();
+
+    /* Scene Controller */
+    (function scenes(){
+      const scenes = [1,2,3,4].map(n => document.getElementById('scene-'+n));
+      const dots = [1,2,3,4].map(n => document.querySelector(`[data-dot="${n}"]`));
+      let current = 1;
+
+      function go(n){
+        current = n;
+        scenes.forEach((s,idx)=>{ s && s.classList.toggle('active', idx === n-1); });
+        dots.forEach((d,idx)=>{ d && d.classList.toggle('active', idx === n-1); });
+      }
+      go(current);
+
+      setInterval(()=>{ if (!document.hidden) go(current < 4 ? current + 1 : 1); }, 6000);
+
+      document.addEventListener('click', ()=>{ go(current < 4 ? current + 1 : 1); });
+
+      // swipe
+      let startX=null;
+      window.addEventListener('touchstart', e=>{ startX = e.touches[0].clientX; }, {passive:true});
+      window.addEventListener('touchend', e=>{
+        if(startX===null) return;
+        const dx = e.changedTouches[0].clientX - startX; startX=null;
+        if(Math.abs(dx) < 40) return;
+        if(dx<0 && current<4) go(current+1);
+        if(dx>0 && current>1) go(current-1);
+      }, {passive:true});
+
+      // keyboard
+      window.addEventListener('keydown', e=>{
+        if(e.key==='ArrowRight' && current<4) go(current+1);
+        if(e.key==='ArrowLeft' && current>1) go(current-1);
+      });
+    })();
+
+    /* Hearts (text-only page keeps hearts) */
+    (function hearts(){
+      const wrap = document.getElementById('hearts');
+      const COUNT = 24;
+      const W = window.innerWidth, H = window.innerHeight;
+      const style = document.createElement('style');
+      style.textContent = `
+        .heart{position:absolute; width:14px; height:14px; transform:rotate(45deg); opacity:.9; animation:floatHeart linear forwards}
+        .heart::before,.heart::after{content:""; position:absolute; width:14px; height:14px; background:radial-gradient(100% 100% at 30% 30%, #ffd1e8 0%, #ff74b9 45%, #c2185b 100%); border-radius:50%}
+        .heart::before{left:-7px}
+        .heart::after{top:-7px}
+        @keyframes floatHeart{0%{transform:translate(var(--x), var(--y)) rotate(45deg) scale(var(--s)); opacity:.95} 100%{transform:translate(calc(var(--x) + var(--drift)), calc(var(--y) - 120vh)) rotate(45deg) scale(var(--s)); opacity:0}}
+      `;
+      document.head.appendChild(style);
+      for(let i=0;i<COUNT;i++){
+        const h = document.createElement('span');
+        h.className = 'heart';
+        const x = Math.random()*W*0.9 + W*0.05;
+        const y = H*0.65 + Math.random()*H*0.15;
+        const s = (0.6 + Math.random()*0.9).toFixed(2);
+        const drift = (Math.random()*120 - 60) + 'px';
+        const dur = (10 + Math.random()*16).toFixed(2) + 's';
+        h.style.setProperty('--x', x+'px');
+        h.style.setProperty('--y', y+'px');
+        h.style.setProperty('--s', s);
+        h.style.setProperty('--drift', drift);
+        h.style.animationDuration = dur;
+        h.style.animationDelay = (-Math.random()*12).toFixed(2)+'s';
+        wrap.appendChild(h);
+      }
+    })();
+
+    // Prevent accidental over-scroll on mobile while effects run
+    document.addEventListener('touchmove', (e)=>{ e.preventDefault(); }, {passive:false});
+  </script>
+
+  <audio id="bgm" preload="auto"></audio>
+</body>
+</html>
